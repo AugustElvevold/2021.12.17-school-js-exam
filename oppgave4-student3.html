@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oppgave 4 - Student 3</title>
+</head>
+<body>
+    <h2>Oversett tyske ord til norsk</h2>
+    <input id="solution" type="button" value="Klikk for å se Fasiten">
+    <br>
+    <br>
+    <label>"Getränk" er </label>
+    <input id="input1" type="text">
+    <label>på norsk</label>
+    <br>
+    <label>"Sessel" er </label>
+    <input id="input2" type="text">
+    <label>på norsk</label>
+    <br>
+    <label>"Einkaufen" er </label>
+    <input id="input3" type="text">
+    <label>på norsk</label>
+    <br>
+    <label>"Monat" er </label>
+    <input id="input4" type="text">
+    <label>på norsk</label>
+    <br>
+    <label>"Katze" er </label>
+    <input id="input5" type="text">
+    <label>på norsk</label>
+    <br>
+    <label>"Ich" er </label>
+    <input id="input6" type="text">
+    <label>på norsk</label>
+    <br>
+    <label>"Lebensmittel" er </label>
+    <input id="input7" type="text">
+    <label>på norsk</label>
+    <br>
+    <label>"Webseite" er </label>
+    <input id="input8" type="text">
+    <label>på norsk</label>
+    <br>
+    <label>"Fliege" er </label>
+    <input id="input9" type="text">
+    <label>på norsk</label>
+    <br>
+    <label>"Fenster" er </label>
+    <input id="input10" type="text">
+    <label>på norsk</label>
+    <br>
+
+    <input type="button" id="submit-btn" value="Sjekk svar">
+
+    <div id="output"></div>
+
+    <script>
+        const input1 = document.getElementById("input1")
+        const input2 = document.getElementById("input2")
+        const input3 = document.getElementById("input3")
+        const input4 = document.getElementById("input4")
+        const input5 = document.getElementById("input5")
+        const input6 = document.getElementById("input6")
+        const input7 = document.getElementById("input7")
+        const input8 = document.getElementById("input8")
+        const input9 = document.getElementById("input9")
+        const input10 = document.getElementById("input10")
+        const solution = document.getElementById("solution")
+        const submitBtn = document.getElementById("submit-btn")
+        const output = document.getElementById("output")
+        
+        var answerArray = [];
+        var rightAnswerArray = ["drikke", "stol", "butikk", "måned", "katt", "jeg", "mat", "nettside", "fly", "vindu"];
+        var rightAnswer = 0;
+
+        function displaySolution() {
+            alert('"Getränk" er "drikke" på norsk');
+            alert('"Sessel" er "stol" på norsk');
+            alert('"Einkaufen" er "butikk" på norsk');
+            alert('"Monat" er "måned" på norsk');
+            alert('"Katze" er "katt" på norsk');
+            alert('"Ich" er "jeg" på norsk');
+            alert('"Lebensmittel" er "mat" på norsk');
+            alert('"Webseite" er "nettside" på norsk');
+            alert('"Fliege" er "fly" på norsk');
+            alert('"Fenster" er "vindu" på norsk');
+        }
+
+        function checkAnswer() {
+            rightAnswer = 0;
+            answerArray = [];
+            answerArray.push(input1.value);
+            answerArray.push(input2.value);
+            answerArray.push(input3.value);
+            answerArray.push(input4.value);
+            answerArray.push(input5.value);
+            answerArray.push(input6.value);
+            answerArray.push(input7.value);
+            answerArray.push(input8.value);
+            answerArray.push(input9.value);
+            answerArray.push(input10.value);
+
+            for (i = 0; i < 10; i++) {
+                if (answerArray[i] == rightAnswerArray[i]) {
+                    rightAnswer++
+                }
+            }
+
+            output.innerHTML = `Antall riktige svar: ${rightAnswer}`;
+        }
+
+        solution.onclick = displaySolution;
+        submitBtn.onclick = checkAnswer;
+
+    </script>
+
+</body>
+</html>

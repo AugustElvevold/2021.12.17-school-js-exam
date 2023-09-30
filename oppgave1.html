@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oppgave 1</title>
+    <link rel="stylesheet" type="text/css" href="css/oppgave1.css">
+</head>
+<body>
+
+    <h1>Modern Art Maker</h1>
+
+    <label>Bredde</label>    
+    <input id="width-txt" type="text">
+
+    <label>Høyde</label>
+    <input id="height-txt" type="text">
+
+    <hr>
+
+    <label>Farge</label>
+    <input id="background-color-txt" type="text">
+
+    <hr>
+
+    <label>Posisjon fra venstre (left)</label>
+    <input id="left-txt" type="text">
+
+    <label>Posisjon fra toppen (top)</label>
+    <input id="top-txt" type="text">
+
+    <hr>
+
+    <input id="add-box-btn" type="button" value="Legg til">
+    <input id="remove-all-btn" type="button" value="Fjern alt"> <!-- Her har vi lagt til en knapp som skal fjerne alt når du trykker på knappen. -->
+
+    <p id="status-p">Antall bokser lagt til: 0</p>
+
+    <div id="output-div"></div>
+
+        <script>
+            // Her ligger alle linkene til HTML-elementene 
+            const widthTxt = document.getElementById("width-txt");
+            const heightTxt = document.getElementById("height-txt");
+            const backgroundColorTxt = document.getElementById("background-color-txt");
+            const leftTxt = document.getElementById("left-txt");
+            const topTxt = document.getElementById("top-txt");
+            const statusP = document.getElementById("status-p");
+            const outputDiv = document.getElementById("output-div");
+            const addBoxBtn = document.getElementById("add-box-btn");
+            const removeAllBtn = document.getElementById("remove-all-btn");
+
+            // Her ligger variablene som kan endres av brukeren på HTML-siden.
+            var width = 0;
+            var height = 0;
+            var backgroundColor = "";
+            var left = 0;
+            var topNotWindow = 0;
+            var counter = 0;
+
+            function addBox(){
+                // Variablene blir oppdatert med det bruker skriver inn i input. 
+                width = widthTxt.value;
+                height = heightTxt.value;
+                backgroundColor = backgroundColorTxt.value;
+                left = leftTxt.value;
+                topNotWindow = topTxt.value;
+                
+                // Dette er funksjonen som legger til boksene og bestemmer posisjonering ut ifra inntastet data i input.
+                outputDiv.innerHTML += `<div style="background-color: ${backgroundColor}; height: ${height}px; width: ${width}px; position: absolute; left: ${left}px; top: ${topNotWindow}px;"></div>`;
+
+                // Counter teller opp hver gang funksjonen kjøres.
+                counter++;
+                // "StatusP" blir oppdatert ved hjelp av counter-variabelen.
+                statusP.innerHTML = `Antall bokser lagt til: ${counter}`;
+            }
+
+            // Dette er funksjonen som fjerner alt i output og setter telleren til 0.
+            function removeAll(){
+                counter = 0;
+
+                // Her settes outputDiv til en tom string.
+                outputDiv.innerHTML = "";
+                // Her settes statusP til 0. 
+                statusP.innerHTML = `Antall bokser lagt til: ${counter}`;
+            }
+
+            // Dette er eventet som starter addBox funksjonen.
+            addBoxBtn.onclick = addBox;
+
+            // Dette er eventet som starter removeAll funksjonen. 
+            removeAllBtn.onclick = removeAll; 
+
+        </script>
+    
+    </body>
+</html>

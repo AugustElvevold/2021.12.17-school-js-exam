@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oppgave 4 - Student 2</title>
+</head>
+<body>
+
+    <div id="score">
+        <h3>Antall riktige svar: 0</h3>
+        <h3>Antall gale svar: 0</h3>
+    </div>
+    <div id="randomNumber"></div>
+    <div id="output"></div>
+
+    <script>
+        const startGameBtn = document.getElementById("startGameBtn");
+        const output = document.getElementById("output");
+        const randomNumberOutput = document.getElementById("randomNumber");
+        const score = document.getElementById("score");
+
+        var randomNumberMemory = 0;
+        var guess = 0;
+        var correctAnswares = 0;
+        var wrongAnswares = 0;
+
+        function startGame() {
+            showNumber();
+            setTimeout(countdown2, 1000);
+            setTimeout(countdown1, 2000);
+            setTimeout(removeNumber, 3000);
+            setTimeout(alertFunc, 3100);
+        }
+
+        function showNumber() {
+            output.innerHTML = "";
+            var randomNumber = Math.floor(Math.random()*10 + 1);
+            randomNumberMemory = randomNumber;
+            randomNumberOutput.innerHTML = `Tall som må huskes: ${randomNumberMemory} (3sec)`;
+        }
+
+        function countdown2() {
+            randomNumberOutput.innerHTML = `Tall som må huskes: ${randomNumberMemory} (2sec)`;
+        }
+        
+        function countdown1() {
+            randomNumberOutput.innerHTML = `Tall som må huskes: ${randomNumberMemory} (1sec)`;
+        }
+
+        function removeNumber() {
+            randomNumberOutput.innerHTML = "Tall som må huskes: ";
+        }
+
+        function alertFunc() {
+            guess = Number(prompt("type in number!!!"));
+            if (guess == randomNumberMemory) {
+                output.innerHTML = "Riktig svar!";
+                correctAnswares++;
+            }
+            else {
+                output.innerHTML = "Feil...";
+                wrongAnswares++;
+            }
+            setTimeout(startGame, 2000);
+            updateScore();
+        }
+
+        function updateScore() {
+            score.innerHTML = `<h3>Antall riktige svar: ${correctAnswares}</h3><h3>Antall gale svar: ${wrongAnswares}</h3>`;
+        }
+
+        startGame();
+    </script>
+</body>
+</html>

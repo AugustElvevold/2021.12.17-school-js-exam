@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oppgave 3 - Middelalderbygninger</title>
+</head>
+<body>
+
+    <h1>Middelalderbygninger</h1>
+    <p>Lyst til å bo i en middelalderbygning? Vi har de beste middelalderbygningene! :)</p>
+
+    <input id="show-all-btn" type="button" value="Vis alle">
+
+    <hr>
+
+    <label>Minimum pris</label>
+    <input id="min-price" type="text"> <!-- Lagt til ID -->
+    <label>Maksimum pris</label>
+    <input id="max-price" type="text"> <!-- Lagt til ID -->
+    <input id="order-by-price-btn" type="button" value="Vis etter pris"> <!-- Lagt til ID -->
+
+    <hr>
+
+    <select id="category-select">
+        <option value="No category">--Velg kategori--</option>
+        <option value="Hytter">Hytter</option>
+        <option value="Bolig">Bolig</option>
+        <option value="Slott">Slott</option>
+    </select>
+    <input id="show-category-btn" type="button" value="Vis etter kategori"> <!-- Lagt til ID -->
+
+    <hr>
+    <div id="output-div-zero"></div>
+    <div id="output-div">
+
+    </div>
+
+        <script>
+            // Her ligger alle linkene til HTML-elementene 
+            const minPrice = document.getElementById("min-price");
+            const maxPrice = document.getElementById("max-price");
+            const outputDiv = document.getElementById("output-div");
+            const showAllBtn = document.getElementById("show-all-btn");
+            const orderByPriceBtn = document.getElementById("order-by-price-btn");
+            const showCategoryBtn = document.getElementById("show-category-btn")
+            const categorySelected = document.getElementById("category-select")
+            const outputDivZero = document.getElementById("output-div-zero");
+
+            // Her er alle verdiene til de forskjellige bygningene.
+            const building1 = new building("Hytte", 6, "building-1.png", "Hytter");
+            const building2 = new building("Luksushytte", 11, "building-2.png", "Hytter");
+            const building3 = new building("Blokk", 19, "building-3.png", "Bolig");
+            const building4 = new building("Villa", 29, "building-4.png", "Bolig");
+            const building5 = new building("Slott", 45, "building-5.png", "Slott");
+            const building6 = new building("Doofenshmirtz ondskapens aksjeselskap", 69, "building-6.png", "Slott");
+
+            var counter = 0;
+            var minimumPrice = 0;
+            var maximumPrice = 0;
+            var objectArray = [building1, building2, building3, building4, building5, building6];
+
+            // Dette er en en funskjon som bygger objektene.
+            function building(name, price, imageName, category){
+                this.name = name,
+                this.price = price,
+                this.imageName = imageName,
+                this.category = category
+            };
+
+            // Funksjonen for å vise alle bygningene.
+            function showAll(){
+                outputDiv.innerHTML = "";
+
+                outputDiv.innerHTML += `<h3>${building1.name}</h3><p>${building1.price} Mark</p><img src="images/${building1.imageName}"/>`;
+                outputDiv.innerHTML += `<h3>${building2.name}</h3><p>${building2.price} Mark</p><img src="images/${building2.imageName}"/>`;
+                outputDiv.innerHTML += `<h3>${building3.name}</h3><p>${building3.price} Mark</p><img src="images/${building3.imageName}"/>`;
+                outputDiv.innerHTML += `<h3>${building4.name}</h3><p>${building4.price} Mark</p><img src="images/${building4.imageName}"/>`;
+                outputDiv.innerHTML += `<h3>${building5.name}</h3><p>${building5.price} Mark</p><img src="images/${building5.imageName}"/>`;
+                outputDiv.innerHTML += `<h3>${building6.name}</h3><p>${building6.price} Mark</p><img src="images/${building6.imageName}"/>`;
+            }
+            
+            // Funksjonen for å sortere etter pris.
+            function orderByPrice(){
+                outputDiv.innerHTML = "";
+                outputDivZero.innerHTML = "";
+                if(Number(minPrice.value) && Number(maxPrice.value)){
+                    minimumPrice = Number(minPrice.value);
+                    maximumPrice = Number(maxPrice.value);
+                    for(let i = 0; i < objectArray.length; i++){
+                        if (minimumPrice < objectArray[i].price && objectArray[i].price < maximumPrice) {
+                            outputDiv.innerHTML += `<h3>${objectArray[i].name}</h3><p>${objectArray[i].price} Mark</p><img src="images/${objectArray[i].imageName}"/>`;
+                        } 
+                    }
+                }else{
+                    outputDiv.innerHTML = "Vennligst legg inn gyldige verdier.";
+                }
+            }
+
+            // Funksjonen for å se om det er en gyldig pris.
+            function addIfValidPrice(a, b){
+                if(maxPrice > a > minPrice){
+                    objectArray.push(b);
+                }
+            }
+
+            // Funksjonen for å filtrere etter kategori.
+            function showCategory() {
+                var currentCategory = categorySelected.value;
+                if(currentCategory != "No category"){
+                    outputDiv.innerHTML = "";
+                    outputDivZero.innerHTML = "";
+                    counter = 0; 
+                    for(let i = 0; i < objectArray.length; i++){
+                        if (currentCategory == objectArray[i].category){
+                            counter++;
+                            outputDiv.innerHTML += `<h3>${objectArray[i].name}</h3><p>${objectArray[i].price} Mark</p><img src="images/${objectArray[i].imageName}"/>`;
+                        }
+                    }
+                    outputDivZero.innerHTML = `Antall bygninger i denne kategorien: ${counter}`;
+                }else{
+                    outputDiv.innerHTML = "Velg en kategori."
+                    outputDivZero.innerHTML = "";
+                }
+            }
+
+            // Events.
+            showAllBtn.onclick = showAll;
+            orderByPriceBtn.onclick = orderByPrice;
+            showCategoryBtn.onclick = showCategory;
+
+        </script>
+
+</body>
+</html>

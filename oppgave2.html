@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oppgave 2 - Dragracing</title>
+    <link rel="stylesheet" href="css/oppgave2.css">
+</head>
+<body>
+
+    <h1>Dragracing</h1>
+
+    <div id="road-div"></div>
+    
+    <img id="blue-car" src="images/blue-car.png">
+    <img id="green-car" src="images/green-car.png">
+    <img id="red-car" src="images/red-car.png">
+
+    <div id="finish-line"></div>
+
+    <div id="output-div"></div>
+
+    <!-- la til knapp for å starte race -->
+    <input id="start-race" type="button" value="Start Løpet!">
+
+    <script>
+        // legger til link til alle HTML-elementer
+        const road = document.getElementById("road-div");
+        const blueCar = document.getElementById("blue-car");
+        const greenCar = document.getElementById("green-car");
+        const redCar = document.getElementById("red-car");
+        const finishLine = document.getElementById("finish-line");
+        const outputDiv = document.getElementById("output-div");
+        const startRace = document.getElementById("start-race");
+
+        // Alle variabler
+        var randomNr = 0;
+        var blueCarLeftValue = 0
+        var greenCarLeftValue = 0
+        var redCarLeftValue = 0
+
+        // definerer variabelen før den brukes
+        var twoSecTimer = 0;
+
+        startRace.style.position = "absolute";
+        startRace.style.top = "400px";
+        startRace.style.left = "0";
+
+        function moveCars() {
+            blueCarLeftValue += Math.floor(Math.random()*200 + 1);
+            greenCarLeftValue += Math.floor(Math.random()*200 + 1);
+            redCarLeftValue += Math.floor(Math.random()*200 + 1);
+
+            blueCar.style.left = `${blueCarLeftValue}px`;
+            greenCar.style.left = `${greenCarLeftValue}px`;
+            redCar.style.left = `${redCarLeftValue}px`;
+
+            // Skjekker om noen av bilene er over 700px. Og så etterpå hvilken bil det var. Det står ikke spesifisert at man skal legge til rette for to biler som kommer sammtidig, så d har vi ikke brydd oss om
+            if (blueCarLeftValue >= 700 || greenCarLeftValue >= 700 || redCarLeftValue >= 700) {
+                clearInterval(twoSecTimer)
+                if (blueCarLeftValue >= 700) {
+                    outputDiv.innerHTML = "Blå bil vant"
+                }
+                if (greenCarLeftValue >= 700) {
+                    outputDiv.innerHTML = "Grønn bil vant"
+                }
+                if (redCarLeftValue >= 700) {
+                    outputDiv.innerHTML = "Rød bil vant"
+                }
+                
+            }
+        }
+
+        // Starter intervallet på twoSecTimer variabelen med 2000ms som interval
+        function startRaceFunc() {
+            blueCarLeftValue = 0;
+            greenCarLeftValue = 0;
+            redCarLeftValue = 0;
+            outputDiv.innerHTML = "";
+            twoSecTimer = setInterval(moveCars, 2000);
+        }
+
+        startRace.onclick = startRaceFunc;
+
+    </script>
+
+</body>
+</html>
